@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pl"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=Work+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#93000a",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "outline": "#9f8e7d",
+                    "on-primary": "#472a00",
+                    "primary-fixed": "#ffddb9",
+                    "surface-container": "#201f1f",
+                    "surface-dim": "#131313",
+                    "on-primary-fixed-variant": "#663e00",
+                    "primary-fixed-dim": "#ffb964",
+                    "tertiary-fixed": "#e4e2e1",
+                    "inverse-primary": "#875300",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary": "#c8c6c5",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-tertiary": "#303030",
+                    "on-surface-variant": "#d6c3b1",
+                    "on-primary-container": "#3f2400",
+                    "surface-bright": "#393939",
+                    "inverse-on-surface": "#313030",
+                    "on-secondary-fixed": "#1b1b1c",
+                    "secondary-container": "#474746",
+                    "error": "#ffb4ab",
+                    "on-secondary-container": "#b7b5b4",
+                    "surface": "#131313",
+                    "on-error": "#690005",
+                    "tertiary": "#c8c6c5",
+                    "on-background": "#e5e2e1",
+                    "surface-variant": "#353534",
+                    "on-error-container": "#ffdad6",
+                    "on-tertiary-container": "#2a2a2a",
+                    "tertiary-container": "#929191",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "on-surface": "#e5e2e1",
+                    "secondary-fixed": "#e5e2e1",
+                    "background": "#131313",
+                    "on-secondary": "#303030",
+                    "surface-container-low": "#1c1b1b",
+                    "on-primary-fixed": "#2b1700",
+                    "on-secondary-fixed-variant": "#474746",
+                    "outline-variant": "#524437",
+                    "surface-container-highest": "#353534",
+                    "primary-container": "#c5832b",
+                    "surface-container-high": "#2a2a2a",
+                    "primary": "#ffb964",
+                    "surface-tint": "#ffb964"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "80px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "lg": "48px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "display": ["Inter"],
+                    "body-md": ["Work Sans"],
+                    "body-lg": ["Work Sans"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "button": ["Inter"]
+            },
+            "fontSize": {
+                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "button": ["16px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full h-[64px] z-50 bg-[#1E1E1E] backdrop-blur-md border-b border-[#2A2A2A] flex justify-between items-center px-6 md:px-12">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#C5832B]" data-icon="menu">menu</span>
+<h1 class="font-inter uppercase tracking-widest font-bold text-2xl text-[#C5832B] tracking-tighter">ATDM</h1>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-inter text-xs tracking-widest uppercase text-white hover:text-[#C5832B] transition-colors duration-300" href="#">Realizacje</a>
+<a class="font-inter text-xs tracking-widest uppercase text-[#C5832B] transition-colors duration-300 border-b border-[#C5832B]" href="#">Usługi</a>
+<a class="font-inter text-xs tracking-widest uppercase text-white hover:text-[#C5832B] transition-colors duration-300" href="#">O Nas</a>
+<a class="font-inter text-xs tracking-widest uppercase text-white hover:text-[#C5832B] transition-colors duration-300" href="#">Kontakt</a>
+</div>
+<div class="text-[#C5832B] font-inter uppercase tracking-widest font-bold text-sm">
+            +48 000 000 000
+        </div>
+</header>
+<main class="pt-[64px]">
+<!-- Hero Section -->
+<section class="relative h-[530px] flex items-center justify-center overflow-hidden border-b border-[#2A2A2A]">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Close-up of industrial welding process with bright orange sparks flying in a dark, atmospheric metal workshop. The scene captures the raw power of metal fabrication with a shallow depth of field, highlighting the intense heat and precision. The lighting is dramatic, high-contrast, dominated by deep shadows and the brilliant glow of molten metal, embodying the ATDM brand's industrial minimalist aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCKhnbvSylvleIopLpDnGCcFbiOCFIXQIJIWu-CibVUCxMcs5G2xpkLBpG0sS5g3VH6rzmszeCy3KfeiKnXlnS2p4DDQWhN8nJvDFTku2T1LxjmQt3GbrXI1rr43is2hVm_oH6hT6AB_hSBjKvmJaBdcMKXUnV3ltOj1I3UebEjQRSwlzSNcrq-tDmcO3RjmLhwTPEkNy3ozWwjYlLs8BfVWVCrojNh-9Sm-9CM9Zq1SqoA07Y_7mqBa-eDZL9Nbp6fYR7lQJ6wI4PU')">
+<div class="absolute inset-0 bg-black/60"></div>
+</div>
+<div class="relative z-10 text-center px-6">
+<h2 class="font-display text-display text-on-background mb-4 uppercase">Konstrukcje Metalowe</h2>
+<p class="font-body-lg text-body-lg text-secondary-fixed-dim max-w-2xl mx-auto">Precyzja, trwałość i surowy industrialny design w każdym detalu.</p>
+</div>
+</section>
+<!-- Services Detail Section (Asymmetric Bento-ish Layout) -->
+<section class="py-xl px-6 md:px-12 max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<!-- Spawanie -->
+<div class="md:col-span-7 bg-surface-container p-lg border border-[#2A2A2A]">
+<div class="flex items-center gap-4 mb-md">
+<span class="material-symbols-outlined text-[#C5832B] text-4xl" data-icon="precision_manufacturing">precision_manufacturing</span>
+<h3 class="font-headline-lg text-headline-lg uppercase text-on-surface">Spawanie TIG/MIG</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">
+                        Nasze usługi spawalnicze to synonim najwyższej jakości połączeń. Specjalizujemy się w metodach TIG oraz MIG/MAG, co pozwala nam na pracę z szerokim spektrum materiałów: od stali konstrukcyjnej, przez stal nierdzewną (inox), aż po aluminium. Każdy spaw jest poddawany rygorystycznej kontroli wizualnej, zapewniając nie tylko wytrzymałość strukturalną, ale i estetykę godną najwyższej klasy projektów architektonicznych.
+                    </p>
+<div class="h-px bg-[#2A2A2A] w-full my-md"></div>
+<ul class="space-y-sm">
+<li class="flex items-center gap-3 font-label-caps text-label-caps text-[#C5832B]">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span> Konstrukcje ciśnieniowe
+                        </li>
+<li class="flex items-center gap-3 font-label-caps text-label-caps text-[#C5832B]">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span> Spoiny ozdobne szlifowane
+                        </li>
+<li class="flex items-center gap-3 font-label-caps text-label-caps text-[#C5832B]">
+<span class="material-symbols-outlined text-sm" data-icon="check">check</span> Pełna certyfikacja materiałowa
+                        </li>
+</ul>
+</div>
+<!-- Konstrukcje logic -->
+<div class="md:col-span-5 bg-surface-container-high p-lg border border-[#2A2A2A] self-stretch">
+<div class="flex items-center gap-4 mb-md">
+<span class="material-symbols-outlined text-[#C5832B] text-4xl" data-icon="architecture">architecture</span>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface">Struktury</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Projektujemy i wykonujemy zaawansowane konstrukcje nośne dla budownictwa i przemysłu. Od szkieletów antresoli po złożone systemy wsporcze maszyn. Nasze podejście łączy wiedzę inżynierską z rzemieślniczą pasją, co gwarantuje stabilność i bezpieczeństwo przy zachowaniu optymalnej wagi konstrukcji.
+                    </p>
+</div>
+<!-- Barierki card -->
+<div class="md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-8 bg-surface-container p-lg border border-[#2A2A2A]">
+<div class="relative h-64 md:h-auto overflow-hidden">
+<img alt="Modern industrial metal railing" class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" data-alt="A sophisticated modern industrial metal railing designed for a minimalist loft interior. The black matte finish of the steel beams contrasts with the warm oak accents nearby. The photography style is sharp and architectural, using natural side lighting to emphasize the clean lines and geometric precision of the metalwork, fitting perfectly within the dark mode aesthetic of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWe2Qo3SGS4XDT3zJuQPqj2SuFfm3E7jdLsgmBPU10deziEQTih4Q5ppEYsyoQD3cJP9TrF2FfLU1WZ-MV_TMKNpm2tlQtutbHBTngwUSdCdcXEqqSK13nmiOCz8JS103sWFjnBWv4F_U5a_kRS3HyZJ13SDCzO6RsT1Pj9pthZmH0x0ib7QCpWlE8nn0jmV2VyTMkdysLgOlqtqK4DKmC7dJ0tcIDS0C7D28ZMLJmoY9BwNAYH7EgoKvQ_msq5qIKs86EiRq_txPO"/>
+</div>
+<div>
+<div class="flex items-center gap-4 mb-md">
+<span class="material-symbols-outlined text-[#C5832B] text-4xl" data-icon="fence">fence</span>
+<h3 class="font-headline-lg text-headline-lg uppercase text-on-surface">Barierki i Balustrady</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">
+                            Realizujemy unikalne projekty balustrad schodowych, balkonowych oraz zabezpieczeń przemysłowych. Nasze barierki to połączenie surowej stali z nowoczesnymi formami, które idealnie wpisują się w przestrzenie typu loft oraz nowoczesne biurowce. Oferujemy wykończenia surowe, malowane proszkowo lub szczotkowane.
+                        </p>
+<button class="w-full md:w-auto h-[56px] px-lg bg-primary-container text-on-primary-container font-button text-button uppercase hover:opacity-90 transition-opacity">
+                            Zamów wycenę
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Section -->
+<section class="py-xl bg-surface-dim border-t border-[#2A2A2A]">
+<div class="max-w-7xl mx-auto px-6 md:px-12">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<span class="font-label-caps text-label-caps text-[#C5832B] block mb-2">PORTFOLIO</span>
+<h2 class="font-headline-lg text-headline-lg uppercase">Wybrane Realizacje</h2>
+</div>
+<div class="hidden md:block h-px bg-[#2A2A2A] flex-grow mx-12 mb-4"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="aspect-square bg-surface-container overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale" data-alt="A close-up shot of a heavy steel structure join with visible, clean welding beads. The metal has a dark, weathered industrial patina, illuminated by a single overhead spotlight that creates sharp highlights on the metallic surface. The mood is professional and rugged, emphasizing the durability and expert craftsmanship of ATDM metal services." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwEyuMbUFnaYHEtY7JxAuyErIo3PaY3qk4MEt3Qixy8udLyDN6guOMSEnVHaLt5-Q8pdNxuZRufhvsZPcuFIJzP_nMLz4CKeIWXRph5eoAEqs2qcfjwbu88u0be6RLkbMiYv2uGlWUtwgSiOlZ0odu_urz_Fc-NaFmnSCX5KguzPBhQ-U1jUrtbMw1-2NiTO_IFYLhLco26_0EZ_yCVFpnO55_illLQ3xmbDqrH9VoQ6k_5S0sQZjFBmur1hZ24cfiR2NziBQKbIwG"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale" data-alt="Abstract architectural shot of a complex metal framework against a dark sky. The overlapping beams create a rhythmic pattern of steel and shadows, showcasing the engineering complexity of modern metal structures. The image is high-contrast, using the deep black background to make the silver and grey metal tones pop with industrial elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD64BsvbB4poVIX-dxq5FwJPOohKfPm2lPR_eMjVBkuN5t4O0FKP2MmV8MMHc9Gw48lBtcNJNLcZ8nEVPExGt7AeWO_l8xEC19nQbKGA8AA6lZXnKfkZMkj1ujw4D3Q8blyq6r4bWt-AEI0cjA6zFrUoeodyWcFYQwlHzHiOOxa6v9ZBDinaQd_kbFnbwZfBPb5_MU9OmnY26TsCCez6BzJKKNe9bFROqaXbvUEBkkWcRThNkHvmkrWZq7MfkfaGSPkzpAZc74BXE_l"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale" data-alt="A row of precision-cut metal plates stacked neatly in a workshop. The edges are sharp and clean, reflecting the cool blue light of a professional fabrication environment. The overall composition is orderly and technical, representing the mathematical rigor and material honesty central to the brand's industrial minimalism identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKR4npYHAdR3Z565KwWhbYsh4ohPmOhrHN9NGXIZ_RysSJNfKAkH1busakLD4C7klHi2_-wHyAWgZpkKAMuRL-oF4q7uQGFLQ2FVXmL8GVZq8Nb6Pz2ezCdAd-LRPrJRG7LxNoCNYXiL7jLn7FQi25Nvbg0vVJnXTIJIeYhsqFthLfPshwW3-XQHR2piSI9ajoOjywYyWyWgUkz8RW7npFqI1qrAfk9dSW4vGfZcVcH9Gi4TOq-IqzJxQqbQw3l6gqT7aKpL8GvXWk"/>
+</div>
+<div class="aspect-square bg-surface-container overflow-hidden group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 grayscale" data-alt="Artistic macro shot of metal shavings on a dark workshop floor, illuminated by a warm amber light that mimics the oak secondary color of the brand. The fine metallic spirals create a texture of industrial beauty, while the deep shadows around them maintain the moody, high-end atmosphere of a professional carpentry and metalwork studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCf4l3bZpcAcJLwayM8PFW5HmajE6wCqHywNcX4oLsY6BRCH4kH3aI2UoO5OPi7WypTscrM7Eg4dH0wsVgtPTxVuNEIqRP60tWqc2syYEAtB2P6Ue1TYYKiweN1jdxKaUvsGgONJypN2wxL6WGAyuzshPzqgLQHFRYqouvTwqyJaAWIWA9UnpIlwqdifL2ob-xRt1fN8Mv2Gg_jk4WwTSwxnl-AzdTow2LOIyBKdCQ74bjtiUnKw6KkoDxGmS7ZwKXDJJ2TcLesac9"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical List Section -->
+<section class="py-xl px-6 md:px-12 max-w-4xl mx-auto">
+<h4 class="font-headline-md text-headline-md uppercase mb-lg text-center">Specyfikacja techniczna</h4>
+<div class="space-y-0 border-t border-[#2A2A2A]">
+<div class="py-md border-b border-[#2A2A2A] flex justify-between items-center group hover:bg-surface-container-low transition-colors px-4">
+<span class="font-body-lg text-body-lg uppercase tracking-wider">Materiały</span>
+<span class="font-label-caps text-label-caps text-[#C5832B]">Stal, Inox, Aluminium</span>
+</div>
+<div class="py-md border-b border-[#2A2A2A] flex justify-between items-center group hover:bg-surface-container-low transition-colors px-4">
+<span class="font-body-lg text-body-lg uppercase tracking-wider">Metody Spawania</span>
+<span class="font-label-caps text-label-caps text-[#C5832B]">TIG, MIG, MAG, MMA</span>
+</div>
+<div class="py-md border-b border-[#2A2A2A] flex justify-between items-center group hover:bg-surface-container-low transition-colors px-4">
+<span class="font-body-lg text-body-lg uppercase tracking-wider">Wykończenie</span>
+<span class="font-label-caps text-label-caps text-[#C5832B]">Malowanie Proszkowe, Ocynk</span>
+</div>
+<div class="py-md border-b border-[#2A2A2A] flex justify-between items-center group hover:bg-surface-container-low transition-colors px-4">
+<span class="font-body-lg text-body-lg uppercase tracking-wider">Termin Realizacji</span>
+<span class="font-label-caps text-label-caps text-[#C5832B]">14 - 30 Dni Roboczych</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-6 bg-[#121212] border-t border-[#2A2A2A]">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto items-start">
+<div>
+<h5 class="text-lg font-bold text-white mb-4 uppercase tracking-widest">ATDM - Drewno i Metal</h5>
+<p class="font-inter text-xs tracking-widest uppercase text-gray-500 mb-6">Specjaliści od rozwiązań industrialnych. Łączymy rzemiosło z nowoczesną technologią.</p>
+<p class="font-inter text-xs tracking-widest uppercase text-gray-400">© 2024 ATDM - Drewno i Metal. All rights reserved.</p>
+</div>
+<div class="flex flex-col md:items-end space-y-4">
+<div class="flex gap-6">
+<a class="font-inter text-xs tracking-widest uppercase text-gray-500 hover:text-white transition-colors" href="#">Email</a>
+<a class="font-inter text-xs tracking-widest uppercase text-gray-500 hover:text-white transition-colors" href="#">WhatsApp</a>
+<a class="font-inter text-xs tracking-widest uppercase text-gray-500 hover:text-white transition-colors" href="#">Facebook</a>
+<a class="font-inter text-xs tracking-widest uppercase text-gray-500 hover:text-white transition-colors" href="#">Instagram</a>
+</div>
+<div class="text-[#C5832B] font-inter text-xs tracking-widest uppercase font-bold">
+                    Usługi Ślusarskie i Spawalnicze
+                </div>
+</div>
+</div>
+</footer>
+</body></html>
