@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Andrzej Tyro - Drewno i Metal</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Pacifico&family=Allan:wght@400;700&family=Montserrat:wght@300;600;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent-color: #d4a373;
+            --bg-dark: #0f0f0f;
+            --text-main: #f5f5f5;
+            --header-h-desktop: 75px;
+            --header-h-mobile: 70px;
+            --anim-speed: 0.45s;
+        }
+		.phone-center {
+			/* ... Twoje obecne style ... */
+			text-decoration: none; /* Usuwa podkreślenie linku */
+			color: var(--accent-color); /* Zapewnia, że kolor pozostanie złoty */
+		}
+
+        /* --- MECHANIZM SCROLL SNAP --- */
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body.menu-open { overflow: hidden; }
+
+        /* --- HEADER Z POPRAWIONYM LOGO --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h-desktop);
+            background-color: rgba(15, 15, 15, 0.98); border-bottom: 3px solid var(--accent-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+            z-index: 10001; backdrop-filter: blur(15px); transition: all var(--anim-speed) ease-in-out;
+        }
+		
+		
+		
+        .logo { 
+		display: flex; 
+		align-items: baseline; 
+		text-decoration: none; 
+		flex: 1; min-width: 0; 
+		margin-left: -25px;
+		}
+        
+        .cap { 
+            font-family: 'Anton', sans-serif; 
+            color: var(--accent-color); 
+            font-size: 3.5rem; 
+            line-height: 0.8; /* Lekko skorygowane dla lepszego styku */
+            text-transform: uppercase; 
+            transition: all var(--anim-speed) ease-in-out;
+            position: relative;
+			margin-right: -18px;
+            z-index: 2;
+        }
+
+        .extra { 
+            font-family: 'Allan', cursive; /* ZMIANA NA ALLAN */
+            font-size: 2.2rem; /* Allan jest naturalnie mniejszy, więc lekko podbity rozmiar */
+            color: var(--text-main); 
+            white-space: nowrap; 
+            overflow: hidden; 
+            max-width: 600px; 
+            opacity: 1; 
+            margin-left: +7px; /* NACHODZENIE NA LITERY */
+            transition: all var(--anim-speed) ease-in-out;
+            position: relative;
+            z-index: 3;
+			padding: 0 4px;      /* Dodaje margines wewnętrzny, by litery miały miejsce */
+			overflow: visible;
+			text-shadow: 
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+        }
+
+		#hero {
+			/* Usuwamy stary background-color i dodajemy zdjęcie z przyciemnieniem */
+			background: 
+				url('https://takemehome.pl/wp-content/uploads/layout/wykonczenie/fladry.jpg');
+			
+			background-size: cover; /* Zdjęcie pokrywa całą sekcję */
+			background-position: center; /* Centrowanie zdjęcia */
+			background-attachment: fixed; /* Opcjonalnie: efekt paralaksy (tło stoi, strona jedzie) */
+			
+			/* Reszta Twoich stylów bez zmian */
+			color: #000; /* To zmienimy w następnym kroku */
+			text-align: center;
+			padding-top: var(--header-h-desktop);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+
+        .phone-center { position: absolute; left: 50%; transform: translate(-50%, 15px); font-size: 1.4rem; font-weight: 600; color: var(--accent-color); opacity: 0; visibility: hidden; transition: all var(--anim-speed) ease-in-out; white-space: nowrap; }
+        .menu-btn { font-weight: 600; letter-spacing: 2px; font-size: 0.95rem; color: var(--text-main); text-transform: uppercase; cursor: pointer; width: 40px; text-align: right; }
+
+        header.scrolled { height: 75px; }
+        header.scrolled .extra { max-width: 0; opacity: 0; margin: 0; }
+        header.scrolled .cap { font-size: 3.5rem; }
+        header.scrolled .phone-center { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+
+        /* --- RESZTA STYLÓW BEZ ZMIAN --- */
+        #menu-overlay { background: url('https://takemehome.pl/wp-content/uploads/layout/wykonczenie/fladry.jpg');
+		justify-content: flex-start;
+		padding-top: 20px;   /* Wysokość Twojego headera + trochę luzu */
+		padding-right: 50px;
+		position: fixed;
+		bottom: -100%; 
+		left: 0; 
+		width: 100%; 
+		height: 100%; 
+		z-index: 10000; 
+		transition: bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+		display: flex; 
+		flex-direction: column; 
+		color: #000; 
+		line-height: 1;
+		align-items: flex-end;   /* Przesuwa linki do prawej krawędzi */
+		padding-right: 10%;      /* Odstęp od prawej krawędzi (możesz dać np. 50px) */
+		text-align: right;       /* Dodatkowa pewność, że tekst równa do prawej */
+		gap: 10px;               /* Odstęp między linkami */
+		}
+		
+
+										/* --- 1. SMARTFON PIONOWO (PORTRAIT) --- */
+						@media screen and (max-width: 600px) and (orientation: portrait) {
+							#menu-overlay {
+								display: flex !important;
+								flex-direction: column !important;
+								justify-content: flex-start !important; /* GÓRA */
+								align-items: flex-end !important;       /* PRAWA */
+								
+								padding-top: 10px !important; 
+								padding-right: 10px !important;
+								gap: 15px !important;
+							}
+
+							#menu-overlay a {
+								font-size: 5rem !important;
+								text-align: right !important;
+								display: block !important;
+							}
+						}
+
+						/* --- 2. SMARTFON POZIOMO (LANDSCAPE) --- */
+						@media screen and (max-height: 500px) and (orientation: landscape) {
+							#menu-overlay {
+								font-size: 2rem !important;
+								display: flex !important;
+								flex-direction: column !important;
+								justify-content: flex-start !important; /* Też góra, żeby widzieć wszystko */
+								align-items: flex-end !important;
+								
+								padding-top: 40px !important; 
+								padding-right: 40px !important;
+								gap: 2px !important; /* Bardzo ciasno, żeby się zmieściło */
+								overflow-y: auto !important; /* W razie czego można przewijać */
+							}
+
+							#menu-overlay a {
+								font-size: 1.8rem !important;
+								padding: 2px 10px !important;
+							}
+						}
+		
+		
+		
+		
+		#menu-overlay.active { bottom: 0; }
+        .menu-header-inside { height: var(--header-h-desktop); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; }
+        .menu-logo-static { font-family: 'Anton', sans-serif; font-size: 3.5rem; text-transform: uppercase; }
+        .menu-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-left: 20%; }
+        .menu-links { list-style: none; }
+        .menu-links li { margin: 15px 0; }
+        .menu-links a { font-family: 'Anton', sans-serif; font-size: clamp(2.5rem, 8vw, 5rem); color: #000; text-decoration: none; transition: transform 0.4s ease; display: inline-block; }
+        .menu-links a:hover { transform: translateX(30px); }
+
+        section { width: 100%; height: 100vh; scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 20px; }
+
+        #hero { background-color: var(--accent-color); color: #000; text-align: center; padding-top: var(--header-h-desktop); }
+        .motto-wrap { font-family: 'Anton', sans-serif; font-size: clamp(1.8rem, 7vw, 5.5rem); line-height: 1.1; text-transform: uppercase; }
+        .line-1 { display: block; transform: translateX(-100%); animation: slideInLeft 1s forwards cubic-bezier(0.16, 1, 0.3, 1); }
+        .line-2 { display: block; margin-top: 10px; padding: 5px 15px; background: #000; color: var(--text-main); transform: translateX(100%); animation: slideInRight 1s 0.3s forwards cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @keyframes slideInLeft { to { transform: translateX(0); } }
+        @keyframes slideInRight { to { transform: translateX(0); } }
+
+        #o-mnie { background: var(--bg-dark); }
+        .about-text-box { max-width: 800px; text-align: center; }
+        .about-text-box h2 { font-family: 'Anton', sans-serif; font-size: 4rem; color: var(--accent-color); margin-bottom: 20px; }
+        .about-text-box p { font-size: 1.2rem; line-height: 1.8; color: #ccc; }
+
+        .project-block { background-size: cover; background-position: center; }
+        .project-block::before { content: ""; position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); }
+        .project-desc { position: absolute; bottom: 10%; z-index: 2; background: rgba(0,0,0,0.8); padding: 15px 30px; border-bottom: 4px solid var(--accent-color); font-family: 'Anton', sans-serif; font-size: 1.8rem; letter-spacing: 2px; }
+
+        #galeria-intro { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1467043153537-a4fba2cd39ef?q=80&w=1200') center/cover; text-align: center; }
+        #galeria-intro h2 { font-family: 'Anton', sans-serif; font-size: clamp(3rem, 10vw, 7rem); color: var(--accent-color); }
+
+        #kontakt { background: #151515; text-align: center; }
+        .contact-card h2 { font-family: 'Anton', sans-serif; font-size: 3.5rem; color: var(--accent-color); margin-bottom: 20px; }
+        .contact-card p { font-size: 1.5rem; margin-bottom: 10px; }
+        .socials { margin-top: 30px; font-size: 2.5rem; display: flex; gap: 30px; justify-content: center; }
+        .socials a { color: var(--text-main); }
+
+        /* --- PRECYZYJNE POPRAWKI DLA TELEFONU (max 600px) --- */
+		@media (max-width: 600px) {
+			
+			/* 1. Korygujemy T na mobile, żeby nie pożarło litery D */
+			header.scrolled #letter-t {
+				color: #000000 !important;
+				margin-right: -5px !important; /* Na telefonie wystarczy mały minus */
+				margin-left: -10 !important;
+				transform: scale(1.1) !important; /* Mniejsza skala na mobile lepiej siedzi */
+			}
+
+			/* 2. Jeśli D jest za blisko A, musimy odsunąć pierwszą literę */
+			header.scrolled .cap:first-of-type {
+				margin-right: -17px !important; /* Daje trochę oddechu między A i T */
+			}
+
+			/* 3. Ustawiamy stały odstęp dla D i M, żeby nie "pływały" */
+			header.scrolled .cap {
+				margin-right: -17px !important; /* Delikatny stały odstęp między wszystkimi literami */
+				font-size: 3rem !important; /* Zmniejszamy bazowy rozmiar liter na mobile */
+			}
+
+			/* 4. Resetujemy logo, żeby nie uciekało w lewo */
+			.logo {
+				margin-left: -20 !important;
+				padding-left: 10px;
+			}
+			.cap { 
+            font-size: 3rem; 
+			}
+			.extra { 
+            font-size: 1.5rem
+			}
+		}
+		header.scrolled #letter-t {
+		color: #000000 !important; /* Tutaj Twój pomarańczowy/czerwony */
+		display: inline-block !important;
+		position: relative !important;
+		z-index: 100 !important;
+		transition: all 2s ease !important;
+		margin-right: -17px !important; /* Przyciąga litery D i M do T */
+		}
+
+		/* Płynny powrót litery T do normy (złotego koloru) po powrocie na górę */
+		#letter-t {
+		display: inline-block;
+		transition: all 0.2s ease;
+		}
+		
+		
+		
+/* --- INTRO SCREEN STYLE - KINOWY EFEKT --- */
+#intro-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    background: #000;
+    z-index: 20000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.2s ease-in-out, visibility 1.2s;
+}
+
+.intro-text {
+    font-family: 'Anton', sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    /* MAGIA PRZEZROCZYSTOŚCI */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* SPOWOLNIONY RUCH (15s zamiast 8s) */
+    background-size: 160% 160%;
+    animation: 
+        woodSlide 15s linear infinite, 
+        woodGallery 6s steps(1) infinite;
+}
+
+/* --- USTAWIENIA DLA LAPTOPA (W jednej linii) --- */
+@media (min-width: 601px) {
+    .intro-text {
+        display: flex;
+        flex-direction: row; /* Litery obok siebie */
+        gap: 0; /* Odstęp między AT a DM */
+        font-size: 19em; /* Wielkość ogólna */
+    }
+    .line-at { font-size: 33rem; margin-right: -20px; } /* Osobna wielkość dla AT */
+    .line-dm { font-size: 33rem; color: transparent; } /* Osobna wielkość dla DM */
+}
+
+/* --- USTAWIENIA DLA MOBILA (Pod sobą) --- */
+@media (max-width: 600px) {
+    .intro-text {
+        display: flex;
+        flex-direction: column; /* Jeden pod drugim */
+        line-height: 0.8;
+    }
+    .line-at { font-size: 22rem; } /* Wielkość AT na telefonie */
+    .line-dm { font-size: 16rem; margin-top: +30px; } /* Wielkość DM na telefonie */
+}
+
+/* ANIMACJE */
+@keyframes woodSlide {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes woodGallery {
+    0%   { background-image: url('https://drewnol.com/media/djcatalog2/images/item/0/altana-3m-x-3m-ural.7_f.webp'); }
+    25%  { background-image: url('https://schodyargo.pl/wp-content/uploads/2022/11/dab-schody-argo.jpg'); }
+    50%  { background-image: url('https://drewaltartak.pl/wp-content/uploads/2021/06/12.jpg'); }
+    75%  { background-image: url('https://pakobud.com.pl/wp-content/uploads/2017/01/wiezba-1030x773.jpg'); }
+}
+
+#intro-overlay.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+		
+		
+		
+    </style>
+</head>
+<body id="main-body">
+
+<div id="intro-overlay">
+    <div class="intro-text">
+        <span class="line-at">AT</span>
+        <span class="line-dm">DM</span>
+    </div>
+</div>
+
+    <header id="navbar">
+	  <div class="logo">
+		<span class="cap">A</span><span class="extra">ndrzej</span>
+		<span class="cap" id="letter-t">T</span><span class="extra">yro -</span>
+		<span class="cap">D</span><span class="extra">rewno i</span>
+		<span class="cap">M</span><span class="extra">etal</span>
+	</div>
+        <div class="phone-center">+48 661 594 397</div>
+		<a href="tel:+48661594397" class="phone-center">+48 661 594 397</a>
+        <div class="menu-btn" id="menu-toggle-btn" onclick="toggleMenu()">MENU</div>
+		
+    </header>
+
+    <div id="menu-overlay">
+        <div class="menu-header-inside">
+        </div>
+        <nav class="menu-content">
+            <ul class="menu-links">
+                <li><a href="#hero" onclick="runIntro(); toggleMenu();">START</a></li>
+                <li><a href="#o-mnie" onclick="toggleMenu()">O MNIE</a></li>
+                <li><a href="#projekty-start" onclick="toggleMenu()">PROJEKTY</a></li>
+                <li><a href="#galeria-intro" onclick="toggleMenu()">GALERIA</a></li>
+                <li><a href="#kontakt" onclick="toggleMenu()">KONTAKT</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section id="hero">
+        <div class="motto-wrap">
+            <span class="line-1">Zrealizujmy wspólnie projekt</span>
+            <span class="line-2">w którym chce się żyć</span>
+        </div>
+    </section>
+
+    <section id="o-mnie">
+        <div class="about-text-box">
+            <h2>O MNIE</h2>
+            <p>Moje rzemiosło to nie produkcja taśmowa, to pasja do materiałów, które przetrwają lata. Tworzę meble, które mają duszę.</p>
+        </div>
+    </section>
+
+    <section id="projekty-start" class="project-block" style="background-image: url('https://images.unsplash.com/photo-1581428982868-e410dd047a90?q=80&w=1200');">
+        <div class="project-desc">STÓŁ DĘBOWY LOFT</div>
+    </section>
+
+    <section class="project-block" style="background-image: url('https://images.unsplash.com/photo-1592078615290-033ee584e267?q=80&w=1200');">
+        <div class="project-desc">REGAŁ STAL I DĄB</div>
+    </section>
+
+    <section class="project-block" style="background-image: url('https://images.unsplash.com/photo-1611486212330-372394afaa1b?q=80&w=1200');">
+        <div class="project-desc">KONSOLA MODERN</div>
+    </section>
+
+    <section id="galeria-intro">
+        <h2>GALERIA</h2>
+        <p style="letter-spacing: 5px; color: #fff; margin-top: 20px;">ZOBACZ WIĘCEJ PRAC</p>
+    </section>
+
+    <section id="kontakt">
+        <div class="contact-card">
+            <h2>KONTAKT</h2>
+            <p>Andrzej Tyro</p>
+			<p><a href="tel:+48661594397" style="color: inherit; text-decoration: none;">+48 661 594 397</a></p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+	// Stałe elementy
+const navbar = document.getElementById("navbar");
+const menuOverlay = document.getElementById("menu-overlay");
+const menuBtn = document.getElementById("menu-toggle-btn");
+const body = document.getElementById("main-body");
+const intro = document.getElementById('intro-overlay');
+
+// --- 1. FUNKCJA URUCHAMIANIA INTRO ---
+function runIntro() {
+    if (!intro) return;
+    
+    // Resetujemy stan intro (pokazujemy je z powrotem)
+    intro.classList.remove('fade-out');
+    document.body.style.overflow = 'hidden'; // Blokujemy scroll
+
+    // Po 4.5 sekundy chowamy intro
+    setTimeout(() => {
+        intro.classList.add('fade-out');
+        document.body.style.overflow = ''; // Przywracamy scroll
+    }, 3000);
+}
+
+// --- 2. START PRZY PIERWSZYM WEJŚCIU ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Blokujemy scroll natychmiast po wczytaniu struktury
+    document.body.style.overflow = 'hidden';
+});
+
+window.addEventListener('load', () => {
+    // Odpalamy intro automatycznie przy starcie strony
+    runIntro();
+});
+
+// --- 3. OBSŁUGA MENU (NAPRAWIONA) ---
+function toggleMenu() {
+    const isOpen = menuOverlay.classList.toggle("active");
+    body.classList.toggle("menu-open");
+    
+    // Zmieniamy napis/ikonę MENU
+    menuBtn.innerHTML = isOpen ? "&#10005;" : "MENU";
+    menuBtn.style.fontSize = isOpen ? "1.5rem" : "0.95rem";
+}
+
+// --- 4. OBSŁUGA SCROLLA (HEADER) ---
+window.addEventListener("scroll", function() {
+    if (window.pageYOffset > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+}, { passive: true });
+    </script>
+
+</body>
+</html>
