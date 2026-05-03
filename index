@@ -1,323 +1,162 @@
 <!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woodpecker Intro Pro</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /* Gradient tła - środek (ciemniejszy) ustawiony tam, gdzie dziób uderza w drzewo */
+            background: radial-gradient(circle at 65% 30%, #a66e24 0%, #C5832B 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<html class="dark" lang="pl"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "error-container": "#93000a",
-                    "secondary-fixed-dim": "#c8c6c5",
-                    "outline": "#9f8e7d",
-                    "on-primary": "#472a00",
-                    "primary-fixed": "#ffddb9",
-                    "surface-container": "#201f1f",
-                    "surface-dim": "#131313",
-                    "on-primary-fixed-variant": "#663e00",
-                    "primary-fixed-dim": "#ffb964",
-                    "tertiary-fixed": "#e4e2e1",
-                    "inverse-primary": "#875300",
-                    "inverse-surface": "#e5e2e1",
-                    "secondary": "#c8c6c5",
-                    "on-tertiary-fixed-variant": "#474746",
-                    "surface-container-lowest": "#0e0e0e",
-                    "on-tertiary": "#303030",
-                    "on-surface-variant": "#d6c3b1",
-                    "on-primary-container": "#3f2400",
-                    "surface-bright": "#393939",
-                    "inverse-on-surface": "#313030",
-                    "on-secondary-fixed": "#1b1b1c",
-                    "secondary-container": "#474746",
-                    "error": "#ffb4ab",
-                    "on-secondary-container": "#b7b5b4",
-                    "surface": "#131313",
-                    "on-error": "#690005",
-                    "tertiary": "#c8c6c5",
-                    "on-background": "#e5e2e1",
-                    "surface-variant": "#353534",
-                    "on-error-container": "#ffdad6",
-                    "on-tertiary-container": "#2a2a2a",
-                    "tertiary-container": "#929191",
-                    "tertiary-fixed-dim": "#c8c6c5",
-                    "on-tertiary-fixed": "#1b1c1c",
-                    "on-surface": "#e5e2e1",
-                    "secondary-fixed": "#e5e2e1",
-                    "background": "#131313",
-                    "on-secondary": "#303030",
-                    "surface-container-low": "#1c1b1b",
-                    "on-primary-fixed": "#2b1700",
-                    "on-secondary-fixed-variant": "#474746",
-                    "outline-variant": "#524437",
-                    "surface-container-highest": "#353534",
-                    "primary-container": "#c5832b",
-                    "surface-container-high": "#2a2a2a",
-                    "primary": "#ffb964",
-                    "surface-tint": "#ffb964"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.125rem",
-                    "lg": "0.25rem",
-                    "xl": "0.5rem",
-                    "full": "0.75rem"
-            },
-            "spacing": {
-                    "xl": "80px",
-                    "sm": "12px",
-                    "md": "24px",
-                    "lg": "48px",
-                    "base": "8px",
-                    "gutter": "24px",
-                    "container-max": "1280px",
-                    "xs": "4px"
-            },
-            "fontFamily": {
-                    "display": ["Inter"],
-                    "body-md": ["Work Sans"],
-                    "body-lg": ["Work Sans"],
-                    "headline-md": ["Inter"],
-                    "headline-lg": ["Inter"],
-                    "label-caps": ["Inter"],
-                    "button": ["Inter"]
-            },
-            "fontSize": {
-                    "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
-                    "button": ["16px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-        .snap-y { scroll-snap-type: y mandatory; }
-        .snap-start { scroll-snap-align: start; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #131313; }
-        ::-webkit-scrollbar-thumb { background: #C5832B; }
+        #overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .container {
+            width: 85vw;
+            max-width: 450px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        /* Oś obrotu - staw przy pazurach */
+        #woodpecker-body {
+            transform-origin: 541px 471px;
+            will-change: transform;
+        }
+
+        /* 1. Stan: Ciągłe stukanie (pętla) */
+        .is-pecking {
+            animation: peck-loop 0.18s infinite alternate ease-in-out;
+        }
+
+        @keyframes peck-loop {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(15deg); }
+        }
+
+        /* 2. Stan: Wygaszanie (1 pełny + 3 spowalniające) */
+        .is-stopping {
+            animation: peck-outro 1.8s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes peck-outro {
+            /* 1. Pełny szybki ruch */
+            0% { transform: rotate(15deg); }
+            10% { transform: rotate(0deg); }
+            20% { transform: rotate(15deg); }
+            /* 2. Pierwsze spowolnienie */
+            35% { transform: rotate(0deg); }
+            50% { transform: rotate(12deg); }
+            /* 3. Drugie spowolnienie */
+            65% { transform: rotate(0deg); }
+            80% { transform: rotate(8deg); }
+            /* 4. Trzecie - najwolniejsze do zera */
+            100% { transform: rotate(0deg); }
+        }
+
+        h2 { font-weight: 300; letter-spacing: 2px; }
+        .hint { font-size: 0.7rem; opacity: 0.8; margin-top: 10px; }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
-<body class="bg-background text-on-background font-body-md overflow-x-hidden selection:bg-primary-container selection:text-white">
-<!-- TopAppBar Shell -->
-<header class="fixed top-0 w-full h-[64px] z-50 bg-[#1E1E1E] backdrop-blur-md border-b border-[#2A2A2A] flex justify-between items-center px-6 md:px-12 w-full">
-<div class="text-2xl font-black text-[#C5832B] tracking-tighter uppercase font-inter">
-            ATDM
-        </div>
-<div class="flex items-center space-x-8">
-<a class="hidden md:block font-inter uppercase tracking-widest font-bold text-white hover:text-[#C5832B] transition-colors duration-300" href="tel:+48000000000">
-                +48 000 000 000
-            </a>
-<button class="text-[#C5832B] hover:opacity-80 active:opacity-60 transition-all">
-<span class="material-symbols-outlined text-3xl">menu</span>
-</button>
-</div>
-</header>
-<main class="h-screen overflow-y-auto snap-y scroll-smooth">
-<!-- Section 1: Hero -->
-<section class="relative h-screen w-full snap-start flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-<div class="absolute inset-0 z-0">
-<img class="w-full h-full object-cover opacity-40" data-alt="A cinematic, low-angle wide shot of a modern architectural structure combining massive dark steel beams and warm raw oak timber. The lighting is dramatic, high-contrast industrial style with golden hour sunlight hitting the wood grains. The atmosphere is professional, stable, and rugged, reflecting premium construction quality with a dark, moody color palette and rich textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5TZ_g3IbH0oxTEkKBsqAGA1qwnOxecbAGAAcXhyK5CQBQkRvqHWHD_Zstbdugutg7qlvWHB3mdxuctTS5nJKUu8JGnGvMQoe2PY2-diSWfa8hIpeveJ2fzfOecz6kCyALP5uyBEF_cS62eNzlPKLNceDMp9uRd2FtLInW3SIt83J2q8kvevl5BjU5wkYfFlFWXp9lzbc0errOrnB4MBUMfj3qcwiL4aVZiZGRbAU0jTRUDECXqJGnEhNUZaDShCiR58umQ0TA6Z6m"/>
-<div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#131313]/50 to-[#131313]"></div>
-</div>
-<div class="relative z-10 max-w-4xl">
-<h1 class="font-display text-display mb-md text-white uppercase tracking-tighter">
-                    ATDM - <span class="text-primary-container">Drewno i Metal</span>
-</h1>
-<p class="font-body-lg text-body-lg text-secondary max-w-2xl mx-auto mb-lg">
-                    Solidne konstrukcje z drewna i metalu. Budowa na lata. Pasja do rzemiosła połączona z precyzją nowoczesnych technologii.
-                </p>
-<div class="flex flex-col md:flex-row gap-md justify-center">
-<button class="bg-primary-container text-white px-lg py-md font-button text-button uppercase hover:brightness-110 transition-all min-h-[56px] border border-primary-container">
-                        Nasze usługi
-                    </button>
-<button class="border border-primary-container text-primary-container px-lg py-md font-button text-button uppercase hover:bg-primary-container hover:text-white transition-all min-h-[56px]">
-                        Kontakt
-                    </button>
-</div>
-</div>
-<div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#C5832B] animate-bounce">
-<span class="material-symbols-outlined text-4xl">keyboard_double_arrow_down</span>
-</div>
-</section>
-<!-- Section 2: Wood Services -->
-<section class="h-screen w-full snap-start grid grid-cols-1 md:grid-cols-2">
-<div class="relative h-1/2 md:h-full overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Extreme close-up of a master carpenter's hands working with high-quality raw oak planks in a dusty, sunlit workshop. Fine wood shavings are visible in the air. The scene conveys a sense of traditional craftsmanship and architectural integrity. The lighting is warm and organic, highlighting the deep texture of the wood grain." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHNPJQ0yEXmUhahpXk1kJu3o4WEvgDfZD_WCl4SRxhred-N5kPgiYhWihOrOFQ-toVgsyAjM2MHBw5wffVibYw_ScgbTDn31K7b0meqiROVWZkelFGW-GgvsXEbrKtmP1KeYcDmH3Qb3IkPc3jGlPWmiwUZRQALvb_JpJgTZUyKvaG_JeuzlWYOXIUoc_9J_TvokYShcg9AWOD4ka80P61yOMmgxQ-FOHVEw2B16GQRH-Dpb2MZom5TzwZJg0kGL_laKJuwTqyTgVG"/>
-<div class="absolute inset-0 bg-[#C5832B]/10"></div>
-</div>
-<div class="flex flex-col justify-center p-lg md:p-xl bg-surface">
-<div class="mb-md">
-<span class="font-label-caps text-label-caps text-primary-container tracking-[0.3em] uppercase">Rzemiosło</span>
-</div>
-<h2 class="font-display text-display text-white mb-lg uppercase">Drewno</h2>
-<ul class="space-y-md mb-xl">
-<li class="flex items-center gap-md border-b border-[#2A2A2A] pb-md">
-<span class="material-symbols-outlined text-primary-container">architecture</span>
-<span class="font-body-lg text-body-lg">Domy szkieletowe</span>
-</li>
-<li class="flex items-center gap-md border-b border-[#2A2A2A] pb-md">
-<span class="material-symbols-outlined text-primary-container">handyman</span>
-<span class="font-body-lg text-body-lg">Remonty i renowacje</span>
-</li>
-<li class="flex items-center gap-md border-b border-[#2A2A2A] pb-md">
-<span class="material-symbols-outlined text-primary-container">deck</span>
-<span class="font-body-lg text-body-lg">Tarasy i zadaszenia</span>
-</li>
-</ul>
-<button class="bg-primary-container text-white px-lg py-md font-button text-button uppercase w-fit min-h-[56px]">
-                    Więcej
-                </button>
-</div>
-</section>
-<!-- Section 3: Metal Services -->
-<section class="h-screen w-full snap-start grid grid-cols-1 md:grid-cols-2">
-<div class="order-2 md:order-1 flex flex-col justify-center p-lg md:p-xl bg-surface-container-low">
-<div class="mb-md">
-<span class="font-label-caps text-label-caps text-primary-container tracking-[0.3em] uppercase">Precyzja</span>
-</div>
-<h2 class="font-display text-display text-white mb-lg uppercase">Metal</h2>
-<ul class="space-y-md mb-xl">
-<li class="flex items-center gap-md border-b border-[#2A2A2A] pb-md">
-<span class="material-symbols-outlined text-primary-container">precision_manufacturing</span>
-<span class="font-body-lg text-body-lg">Spawanie precyzyjne</span>
-</li>
-<li class="flex items-center gap-md border-b border-[#2A2A2A] pb-md">
-<span class="material-symbols-outlined text-primary-container">architecture</span>
-<span class="font-body-lg text-body-lg">Konstrukcje stalowe</span>
-</li>
-<li class="flex items-center gap-md border-b border-[#2A2A2A] pb-md">
-<span class="material-symbols-outlined text-primary-container">grid_view</span>
-<span class="font-body-lg text-body-lg">Barierki i ogrodzenia</span>
-</li>
-</ul>
-<button class="bg-primary-container text-white px-lg py-md font-button text-button uppercase w-fit min-h-[56px]">
-                    Więcej
-                </button>
-</div>
-<div class="relative h-1/2 md:h-full order-1 md:order-2 overflow-hidden">
-<img class="w-full h-full object-cover" data-alt="Industrial metalworking scene featuring blue electric welding sparks in a dark, atmospheric factory environment. The focused lighting reveals heavy steel plates and structural components with a cold, blueish-grey metallic sheen. The mood is powerful and industrial, emphasizing precision, strength, and professional metal fabrication techniques." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt5n7Fei7mrfmXVNexc8ZoPLR2P1ddajCMcGPChwit6kjw1igcYGivemoJ9jz0BNNrof-2oKNsq79WIKNkq57S7WmZnNhPOoPnXuPY1xdxc8Tmel9GIVOOelgqQVUMJVd28GSdmqjv2F8JZBws88vxQ_fyLjexcJanmkYgeVmGLNOvC-D4qqWDftLHs6JLPr2N7NtTmxchppcDbCIPHlUzCR3C9_BXJ8CRg2otiTsBl9dPFtXVKJpVbTKGFz2XXKczKbaEjoWNyaYM"/>
-<div class="absolute inset-0 bg-black/40"></div>
-</div>
-</section>
-<!-- Section 4: Gallery (Bento-style Grid) -->
-<section class="h-screen w-full snap-start bg-surface p-md md:p-lg flex flex-col">
-<div class="mb-lg text-center pt-xl">
-<h2 class="font-display text-display text-white uppercase mb-sm">Nasze Realizacje</h2>
-<div class="w-12 h-1 bg-primary-container mx-auto"></div>
-</div>
-<div class="flex-grow grid grid-cols-2 md:grid-cols-4 gap-md md:gap-gutter max-w-container-max mx-auto w-full pb-xl">
-<!-- Gallery Item 1 -->
-<div class="relative group overflow-hidden bg-surface-container aspect-[3/4] md:aspect-auto">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" data-alt="Full view of a luxury modern wooden cabin in a forest setting, featuring dark metal roofing and large glass windows. The building showcases perfect joinery and structural integrity. The lighting is soft morning mist, creating a peaceful yet high-end architectural atmosphere with deep forest greens and warm wood tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBatUrd7qHBvjhDftNzUB1StWX1A7Yg7L7jSLEVCziJZR0VYFTA92iJkc2ZX7TGs9ljbwGV9fxTke7Jijq3fxegKxFDB3cRPUEbu8PdS3O6najRHW1z4dcsrtoI0XxwreKHlngqZ1XKKWUuWZTZ30evqSrqA8qQbSYnCB4gTsDoDLkjcOw9vkqR3fjn8At252FNG_5LCSHnpku2XvurC7NppUmLJodvCRd8ARqlEGS-orBmRWA31lO25BNttPHaGjL9ZsThnztiVHvD"/>
-<div class="absolute bottom-0 left-0 p-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-primary-container w-full">
-<p class="font-label-caps text-white">Dom Szkieletowy - Solina</p>
-</div>
-</div>
-<!-- Gallery Item 2 -->
-<div class="relative group overflow-hidden bg-surface-container aspect-[3/4] md:aspect-auto md:row-span-2">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" data-alt="Interior shot of a designer staircase featuring floating raw wood treads supported by a minimal black powder-coated steel frame. The minimalist industrial design is highlighted by strong vertical lines and clean shadows. The color palette is strictly dark grey and warm oak, reflecting high-end interior craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAqE3_Gz4Ov77cV8sK8ki9fPmxEs_61VfPRQikUkSotR3tb1Ck1xcHQ1_Sc9SkPHqAc-9wxj-KWzY64-Gk3c9yAea52YoFSXJzc3eEQAUEhmWvGpoD8gUr_3STHxTYcYjvPfHtcnvdIXSvVYIwOC5rcsJ4wmiuIp3f2WHdrqKhbZNAy-JyLdVr207v1ZrFNKrIv-yr8ArpKl7flek_x7Dnpt8CPKXY_A_wVC03NGKvn1nq87dA0q4AiZrA1Z6P9k3rmCOxBkpCSgcS"/>
-<div class="absolute bottom-0 left-0 p-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-primary-container w-full">
-<p class="font-label-caps text-white">Schody Loft - Przemyśl</p>
-</div>
-</div>
-<!-- Gallery Item 3 -->
-<div class="relative group overflow-hidden bg-surface-container aspect-[3/4] md:aspect-auto">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" data-alt="Exterior industrial metal railing detail on a modern terrace. The welding points are smooth and polished, demonstrating superior technical skill. The setting is an urban outdoor space with cool neutral tones and sharp, architectural lighting that emphasizes the durability and precision of the metalwork." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMhPOAATZ7DyjUa8-34RMtmc1Zv-BqeZGXqRkYuytWnqmE8EaY8ILYfq8s0fIihj5YIhVnEof6F6oOZ1wZckh-V-VMTYirDEfhQ1X6aBEZgFX7Ekcc8CpdD8qDeNIHhdH2uYDJDgPoK-p_FjQ37Up8oXfCQsIbx5Ew6M4vzZZN-qb9G75unwgDAHdLWhFocJ0rpNlQaV80Y2Cxa3o_QNwsc_97mugM0omcLiY8oxdL10s8A_e1lCcnjM9anxwBQbVNhY0TfoTpVgFs"/>
-<div class="absolute bottom-0 left-0 p-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-primary-container w-full">
-<p class="font-label-caps text-white">Barierki - Krosno</p>
-</div>
-</div>
-<!-- Gallery Item 4 -->
-<div class="relative group overflow-hidden bg-surface-container aspect-[3/4] md:aspect-auto md:row-span-2">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" data-alt="Construction site of a heavy timber frame building under a clear blue sky. The massive wood beams are expertly notched and bolted with galvanized steel hardware. The scene is bright and professional, highlighting the large-scale capabilities of a construction team specialized in raw materials." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU1BgdP1Pjrswm4i_AaNjRJ2aA5rdTFXzQ6dlZmQjlAyzmyuLyat332dq6ovCDCxLd7yYmM8jB2_BZUEFyvcDgjhVQEBXemwhR_hBEvWVLAnULAn-T4LW9lEiKTqFdfR7I6nkw1_rqk6BXxR45vAdu7a5tWx8n8q_DqE4yj7bqIy1eX9VYF2Uz7z4wTTqclISVjhjnyDoUonr2sDhQu9SILHxosmgtkwQWjKUsR7O3xX8H8RWTes85YH3wxKEEQBd9mcIhxWEUpNk3"/>
-<div class="absolute bottom-0 left-0 p-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-primary-container w-full">
-<p class="font-label-caps text-white">Więźba Dachowa - Sanok</p>
-</div>
-</div>
-<!-- Gallery Item 5 -->
-<div class="relative group overflow-hidden bg-surface-container aspect-[3/4] md:aspect-auto">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" data-alt="A detailed shot of a finished wooden deck made of Siberian larch planks, integrated with a sleek metal perimeter. The construction is perfectly level and aligned. Soft evening lighting emphasizes the smooth surface and professional finishing. The colors are natural wood and anthracite steel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV4qmTgndz2HT3J87Uzw7oR1m7zJu4BJ0bCWaKmVJDN4k4bMb2pq8Y6PnP5rcM2kYjtnVqIq6zCMGvrMqrS7aOtVAlMdphmb4LapbomAXrvqLL7K31tGxcKR0lBIypynZcxZiM-ThmKZmrTzXUzICLjiX3aAYJcPWwe74v8qHRkwmOvBPUHmWS3H6Xey_QQFxM4bj84h8_fdEyXpFaCvhxulc-4A4ZClBRCFUcKsPEZWzCLX3WOb_gTFtmBODkrFEE3LVst7PC6_qB"/>
-<div class="absolute bottom-0 left-0 p-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-primary-container w-full">
-<p class="font-label-caps text-white">Taras Drewniany</p>
-</div>
-</div>
-<!-- Gallery Item 6 -->
-<div class="relative group overflow-hidden bg-surface-container aspect-[3/4] md:aspect-auto">
-<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" data-alt="Modern industrial storage unit built with a combination of dark steel mesh and reclaimed wood shelves. The design is functional and rugged, suitable for both residential and commercial spaces. High-contrast studio lighting highlights the material variety and sturdy assembly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpgkZBltrm4m-MdgwrSHTxPaf5M3gOXhxOhoAc76ixABDICRIYf9GV5KWki9gnsS0lDMzzVJzw2RtALYBQtFo36kPnIIfKkoLo-nkhsi-vmSNkXLq11s-cHyYS3I0hwgZ_FurmmQU68dLIaknHz7GQzzSNU_K4oNwucRz5u55SfrfRev6ZSXUscjF9EESLl4Wsk6Nk1Wth-fAnC5ZMyV-N7mp7XDd4MnzDBPTPHQwdalX6Rb0TW-eZHWO6SKV3pw2BdkhwC-OV7QSy"/>
-<div class="absolute bottom-0 left-0 p-md translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-primary-container w-full">
-<p class="font-label-caps text-white">Meble Industrialne</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Section 5: Contact -->
-<section class="h-screen w-full snap-start bg-surface-container-lowest flex flex-col justify-center items-center px-6 text-center">
-<h2 class="font-display text-display text-white mb-lg uppercase">Kontakt</h2>
-<div class="max-w-2xl mb-xl">
-<p class="font-body-lg text-body-lg text-secondary-fixed-dim leading-relaxed">
-                    Obszar działania: <span class="text-white font-bold">Podkarpacie</span> (okolice Soliny, Przemyśla, Krosna) oraz realizacje wyjazdowe na terenie całego kraju.
-                </p>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-md md:gap-lg w-full max-w-4xl">
-<a class="flex flex-col items-center gap-md p-lg bg-surface-container hover:bg-primary-container group transition-all duration-300" href="mailto:biuro@atdm.pl">
-<span class="material-symbols-outlined text-4xl text-primary-container group-hover:text-white">mail</span>
-<span class="font-label-caps text-secondary-fixed-dim group-hover:text-white">Email</span>
-</a>
-<a class="flex flex-col items-center gap-md p-lg bg-surface-container hover:bg-primary-container group transition-all duration-300" href="#">
-<span class="material-symbols-outlined text-4xl text-primary-container group-hover:text-white" style="font-variation-settings: 'FILL' 1;">chat</span>
-<span class="font-label-caps text-secondary-fixed-dim group-hover:text-white">WhatsApp</span>
-</a>
-<a class="flex flex-col items-center gap-md p-lg bg-surface-container hover:bg-primary-container group transition-all duration-300" href="#">
-<span class="material-symbols-outlined text-4xl text-primary-container group-hover:text-white">social_leaderboard</span>
-<span class="font-label-caps text-secondary-fixed-dim group-hover:text-white">Facebook</span>
-</a>
-<a class="flex flex-col items-center gap-md p-lg bg-surface-container hover:bg-primary-container group transition-all duration-300" href="#">
-<span class="material-symbols-outlined text-4xl text-primary-container group-hover:text-white">photo_camera</span>
-<span class="font-label-caps text-secondary-fixed-dim group-hover:text-white">Instagram</span>
-</a>
-</div>
-<footer class="mt-xl w-full max-w-7xl px-6 border-t border-[#2A2A2A] pt-lg">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-left">
-<div>
-<p class="text-lg font-bold text-white mb-sm">ATDM - Drewno i Metal</p>
-<p class="font-inter text-xs tracking-widest uppercase text-gray-500">© 2024 ATDM - Drewno i Metal. All rights reserved.</p>
-</div>
-<div class="flex gap-md md:justify-end">
-<a class="font-inter text-xs tracking-widest uppercase text-gray-500 hover:text-white transition-colors" href="#">Polityka Prywatności</a>
-<a class="font-inter text-xs tracking-widest uppercase text-gray-500 hover:text-white transition-colors" href="#">Mapa Strony</a>
-</div>
-</div>
-</footer>
-</section>
-</main>
-<!-- Navigation Drawer (Hidden by default, structure provided) -->
-<div class="hidden fixed inset-0 z-[60] w-full h-full bg-[#121212] flex flex-col justify-center items-start p-12 space-y-8" id="drawer">
-<div class="text-[#C5832B] mb-8 font-inter text-4xl font-bold uppercase">ATDM - MENU</div>
-<nav class="flex flex-col space-y-8">
-<a class="text-[#C5832B] border-l-4 border-[#C5832B] pl-4 font-inter text-4xl font-bold uppercase hover:pl-6 transition-all duration-300" href="#">Realizacje</a>
-<a class="text-gray-400 hover:text-white font-inter text-4xl font-bold uppercase hover:pl-6 transition-all duration-300" href="#">Usługi</a>
-<a class="text-gray-400 hover:text-white font-inter text-4xl font-bold uppercase hover:pl-6 transition-all duration-300" href="#">O Nas</a>
-<a class="text-gray-400 hover:text-white font-inter text-4xl font-bold uppercase hover:pl-6 transition-all duration-300" href="#">Materiały</a>
-<a class="text-gray-400 hover:text-white font-inter text-4xl font-bold uppercase hover:pl-6 transition-all duration-300" href="#">Kontakt</a>
-</nav>
-<button class="absolute top-6 right-6 text-[#C5832B]">
-<span class="material-symbols-outlined text-4xl">close</span>
-</button>
-</div>
-</body></html>
+</head>
+<body>
+
+    <div id="overlay">
+        <h2>WEJDŹ DO ŚWIATA</h2>
+        <div class="hint">TAPNIJ, ABY URUCHOMIĆ LOGO</div>
+    </div>
+
+    <div class="container">
+        <svg viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pazury (Nieruchome - Czarne) -->
+            <path id="claws" fill="#000000" d="m541.12 471.8 19.243-30.839 0.24671 33.059 46.628-28.125 7.648-23.191 35.773-12.582-6.1678 18.503-16.036 5.4276-19.243 63.898 8.6349 17.763-5.6743 23.684-19.243-38.98 6.1678-27.632-57.73 36.76z" />
+            
+            <g id="woodpecker-body">
+                <!-- Korpus - Czarny -->
+                <path id="main-body" fill="#000000" d="m409.47 222.77-0.15224 58.91-56.225 90.058v138.76l72.172-119.22 11.457 1.707 4.8691 17.578-88.498 146.19v138.76l56-92.508v231.41l84-138.76v-138.9l76.637-126.56-0.55479-85.23-50.292-46.514-0.53773-12.022 35.611-22.713-13.423-16.498-47.183 28.699-0.0847 36.024 51.866 47.947 0.74989 63.405-80.789 133.46v138.9l-28 46.256v-185.16l83.742-138.34-25.865-89.869-77.942-13.163 17.216-26.14 0.16128-63.225zm-8.0789 115.44 73.648 11.086 18.834 67.41s-56.521 93.368-84.781 140.05l-28 46.254v-46.254c27.644-47.824 85.744-141.91 85.744-141.91l-10.805-44.578-42.238-6.293-32.701 54.018v-46.254z" />
+                <!-- Brzuch - Czerwony -->
+                <path id="belly" fill="#FF0000" d="m493.09 621.52v-64.262l22.637-36.058-11.348-29.901-39.289 64.459v82.9" />
+                <!-- Głowa - Czerwona -->
+                <path id="head" fill="#FF0000" d="m525.8 167.46 36.427 45.998-18.446 11.658-27.838-35.829-110.37-14.287 19.469 27.663 81.499 10.451-4.3957 21.974-93.128-12.029-54.309-77.301z" />
+                <!-- Dziób i oko - Czarne -->
+                <path id="beak" fill="#000000" d="m643.48 253.11-81.819-40.414-18.625 11.686-3.4943 23.572 12.972 16.586z" />
+                <circle id="eye" fill="#000000" cx="503.12" cy="224.69" r="16.049" />
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        const bodyGroup = document.getElementById('woodpecker-body');
+        const overlay = document.getElementById('overlay');
+        
+        let isActuallyPecking = false;
+        let stopTimer;
+        const threshold = 12;
+
+        async function initSensor() {
+            overlay.style.display = 'none';
+
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                const permission = await DeviceMotionEvent.requestPermission();
+                if (permission === 'granted') {
+                    window.addEventListener('devicemotion', handleMove);
+                }
+            } else {
+                window.addEventListener('devicemotion', handleMove);
+            }
+        }
+
+        function handleMove(e) {
+            const acc = e.accelerationIncludingGravity;
+            if (!acc) return;
+
+            const force = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
+
+            if (force > threshold) {
+                if (!isActuallyPecking) {
+                    isActuallyPecking = true;
+                    // Przełączamy na tryb pętli
+                    bodyGroup.classList.remove('is-stopping');
+                    bodyGroup.classList.add('is-pecking');
+                }
+                
+                // Odświeżamy licznik zatrzymania
+                clearTimeout(stopTimer);
+                stopTimer = setTimeout(triggerOutro, 250);
+            }
+        }
+
+        function triggerOutro() {
+            if (isActuallyPecking) {
+                isActuallyPecking = false;
+                // Zamieniamy pętlę na animację wygaszania
+                bodyGroup.classList.remove('is-pecking');
+                bodyGroup.classList.add('is-stopping');
+            }
+        }
+
+        overlay.addEventListener('click', initSensor);
+    </script>
+</body>
+</html>
