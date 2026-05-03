@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Andrzej Tyro - Drewno i Metal</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Pacifico&family=Allan:wght@400;700&family=Montserrat:wght@300;600;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent-color: #d4a373; /* Twój złoty/beżowy */
+            --woodpecker-gold: #C5832B;
+            --bg-dark: #0f0f0f;
+            --text-main: #f5f5f5;
+            --header-h-desktop: 75px;
+            --header-h-mobile: 70px;
+            --anim-speed: 0.45s;
+        }
+
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        body.menu-open { overflow: hidden; }
+
+        /* --- HEADER ZINTEGROWANY Z DZIĘCIOŁEM --- */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--header-h-desktop);
+            background-color: rgba(15, 15, 15, 0.98); border-bottom: 3px solid var(--accent-color);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 5%;
+            z-index: 10001; backdrop-filter: blur(15px); transition: all var(--anim-speed) ease-in-out;
+        }
+
+        /* Kontener Logo z Dzięciołem */
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex: 1;
+        }
+
+        /* Mały dzięcioł w rogu */
+        .woodpecker-mini {
+            width: 55px;
+            height: 55px;
+            margin-right: -5px;
+            z-index: 10;
+            /* Oś obrotu ustawiona na pazury, żeby stukał w literę A */
+            transform-origin: 541px 471px; 
+            transition: transform 0.1s ease-out;
+            /* Lekkie wystawanie poza pasek */
+            transform: translateY(5px);
+        }
+
+        /* Animacja uderzania wyzwalana przez JS */
+        .pecking-now {
+            animation: hit-text 0.12s infinite alternate ease-in-out;
+        }
+
+        @keyframes hit-text {
+            0% { transform: translateY(5px) rotate(0deg); }
+            100% { transform: translateY(5px) rotate(12deg); }
+        }
+
+        .logo { display: flex; align-items: baseline; text-decoration: none; overflow: visible;}
+        
+        .cap { 
+            font-family: 'Anton', sans-serif; 
+            color: var(--accent-color); 
+            font-size: 3.5rem; 
+            line-height: 0.8;
+            text-transform: uppercase; 
+            transition: all var(--anim-speed) ease-in-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .extra { 
+            font-family: 'Allan', cursive;
+            font-size: 2.2rem;
+            color: var(--text-main); 
+            white-space: nowrap; 
+            overflow: hidden; 
+            max-width: 600px; 
+            opacity: 1; 
+            margin-left: -5px;
+            transition: all var(--anim-speed) ease-in-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Numer telefonu na środku */
+        .phone-center { 
+            position: absolute; left: 50%; transform: translateX(-50%); 
+            font-size: 1.2rem; font-weight: 600; color: var(--accent-color); 
+            white-space: nowrap; transition: opacity 0.3s;
+        }
+
+        /* Hamburger po prawej */
+        .menu-btn { font-family: 'Anton', sans-serif; font-size: 1.2rem; color: var(--text-main); cursor: pointer; }
+
+        header.scrolled .extra { max-width: 0; opacity: 0; }
+        header.scrolled .cap { font-size: 3rem; }
+
+        /* Menu Overlay i sekcje bez zmian... */
+        #menu-overlay { position: fixed; bottom: -100%; left: 0; width: 100%; height: 100%; background-color: var(--accent-color); z-index: 10000; transition: bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; color: #000; }
+        #menu-overlay.active { bottom: 0; }
+        .menu-header-inside { height: var(--header-h-desktop); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; }
+        .menu-logo-static { font-family: 'Anton', sans-serif; font-size: 3.5rem; text-transform: uppercase; }
+        .menu-content { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-left: 10%; }
+        .menu-links { list-style: none; }
+        .menu-links li { margin: 15px 0; }
+        .menu-links a { font-family: 'Anton', sans-serif; font-size: clamp(2.5rem, 8vw, 5rem); color: #000; text-decoration: none; transition: transform 0.4s ease; display: inline-block; }
+        .menu-links a:hover { transform: translateX(30px); }
+
+        section { width: 100%; height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+        #hero { background-color: var(--accent-color); color: #000; text-align: center; }
+        .motto-wrap { font-family: 'Anton', sans-serif; font-size: clamp(1.8rem, 7vw, 5.5rem); text-transform: uppercase; }
+
+        @media (max-width: 600px) {
+            .phone-center { display: none; } /* Na małych tel. chowamy numer, żeby nie było ciasno */
+            .cap { font-size: 2.5rem !important; }
+            .woodpecker-mini { width: 45px; height: 45px; }
+        }
+    </style>
+</head>
+<body id="main-body" onclick="requestAccess()">
+
+    <header id="navbar">
+        <div class="logo-wrap">
+            <!-- DZIĘCIOŁ (wklejony jako mini SVG) -->
+            <svg class="woodpecker-mini" id="wp-anim" viewBox="0 0 900 900">
+                <path id="claws" fill="#C5832B" d="m541.12 471.8 19.243-30.839 0.24671 33.059 46.628-28.125 7.648-23.191 35.773-12.582-6.1678 18.503-16.036 5.4276-19.243 63.898 8.6349 17.763-5.6743 23.684-19.243-38.98 6.1678-27.632-57.73 36.76z" />
+                <g id="woodpecker-moving-part">
+                    <path fill="#C5832B" d="m409.47 222.77-0.15224 58.91-56.225 90.058v138.76l72.172-119.22 11.457 1.707 4.8691 17.578-88.498 146.19v138.76l56-92.508v231.41l84-138.76v-138.9l76.637-126.56-0.55479-85.23-50.292-46.514-0.53773-12.022 35.611-22.713-13.423-16.498-47.183 28.699-0.0847 36.024 51.866 47.947 0.74989 63.405-80.789 133.46v138.9l-28 46.256v-185.16l83.742-138.34-25.865-89.869-77.942-13.163 17.216-26.14 0.16128-63.225zm-8.0789 115.44 73.648 11.086 18.834 67.41s-56.521 93.368-84.781 140.05l-28 46.254v-46.254c27.644-47.824 85.744-141.91 85.744-141.91l-10.805-44.578-42.238-6.293-32.701 54.018v-46.254z" />
+                    <path fill="#FF0000" d="m493.09 621.52v-64.262l22.637-36.058-11.348-29.901-39.289 64.459v82.9" />
+                    <path fill="#FF0000" d="m525.8 167.46 36.427 45.998-18.446 11.658-27.838-35.829-110.37-14.287 19.469 27.663 81.499 10.451-4.3957 21.974-93.128-12.029-54.309-77.301z" />
+                    <path fill="#C5832B" d="m643.48 253.11-81.819-40.414-18.625 11.686-3.4943 23.572 12.972 16.586z" />
+                    <circle fill="#C5832B" cx="503.12" cy="224.69" r="16.049" />
+                </g>
+            </svg>
+            
+            <div class="logo">
+                <span class="cap">A</span><span class="extra">ndrzej</span>
+                <span class="cap">T</span><span class="extra">yro -</span>
+                <span class="cap">D</span><span class="extra">rewno i</span>
+                <span class="cap">M</span><span class="extra">etal</span>
+            </div>
+        </div>
+
+        <div class="phone-center">+48 661 594 397</div>
+        <div class="menu-btn" id="menu-toggle-btn" onclick="toggleMenu()">MENU</div>
+    </header>
+
+    <!-- Overlay Menu -->
+    <div id="menu-overlay">
+        <div class="menu-header-inside">
+            <div class="menu-logo-static">ATDM</div>
+        </div>
+        <nav class="menu-content">
+            <ul class="menu-links">
+                <li><a href="#hero" onclick="toggleMenu()">START</a></li>
+                <li><a href="#o-mnie" onclick="toggleMenu()">O MNIE</a></li>
+                <li><a href="#kontakt" onclick="toggleMenu()">KONTAKT</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section id="hero">
+        <div class="motto-wrap">
+            <span class="line-1">Zrealizujmy projekt</span><br>
+            <span class="line-2">w którym chce się żyć</span>
+        </div>
+    </section>
+
+    <script>
+        const navbar = document.getElementById("navbar");
+        const wp = document.getElementById("woodpecker-moving-part");
+        let isPecking = false;
+
+        // Obsługa Menu
+        function toggleMenu() {
+            document.getElementById("menu-overlay").classList.toggle("active");
+            document.getElementById("main-body").classList.toggle("menu-open");
+        }
+
+        // Efekt Scrolla
+        window.addEventListener("scroll", () => {
+            if (window.pageYOffset > 50) navbar.classList.add("scrolled");
+            else navbar.classList.remove("scrolled");
+        });
+
+        // AKCELEROMETR - FUNKCJA STUKANIA
+        async function requestAccess() {
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                const permission = await DeviceMotionEvent.requestPermission();
+                if (permission === 'granted') window.addEventListener('devicemotion', handleMotion);
+            } else {
+                window.addEventListener('devicemotion', handleMotion);
+            }
+        }
+
+        function handleMotion(event) {
+            const acc = event.accelerationIncludingGravity;
+            const threshold = 15;
+            const totalAcc = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
+
+            if (totalAcc > threshold && !isPecking) {
+                isPecking = true;
+                wp.classList.add('pecking-now');
+                setTimeout(() => {
+                    wp.classList.remove('pecking-now');
+                    isPecking = false;
+                }, 1000); // Stuka przez sekundę po potrząśnięciu
+            }
+        }
+    </script>
+
+</body>
+</html>
