@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woodpecker Intro Pro</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /* Gradient tła - środek (ciemniejszy) ustawiony tam, gdzie dziób uderza w drzewo */
+            background: radial-gradient(circle at 65% 30%, #a66e24 0%, #C5832B 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .container {
+            width: 85vw;
+            max-width: 450px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+        }
+
+        /* Oś obrotu - staw przy pazurach */
+        #woodpecker-body {
+            transform-origin: 541px 471px;
+            will-change: transform;
+        }
+
+        /* 1. Stan: Ciągłe stukanie (pętla) */
+        .is-pecking {
+            animation: peck-loop 0.18s infinite alternate ease-in-out;
+        }
+
+        @keyframes peck-loop {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(15deg); }
+        }
+
+        /* 2. Stan: Wygaszanie (1 pełny + 3 spowalniające) */
+        .is-stopping {
+            animation: peck-outro 1.8s forwards cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes peck-outro {
+            /* 1. Pełny szybki ruch */
+            0% { transform: rotate(15deg); }
+            10% { transform: rotate(0deg); }
+            20% { transform: rotate(15deg); }
+            /* 2. Pierwsze spowolnienie */
+            35% { transform: rotate(0deg); }
+            50% { transform: rotate(12deg); }
+            /* 3. Drugie spowolnienie */
+            65% { transform: rotate(0deg); }
+            80% { transform: rotate(8deg); }
+            /* 4. Trzecie - najwolniejsze do zera */
+            100% { transform: rotate(0deg); }
+        }
+
+        h2 { font-weight: 300; letter-spacing: 2px; }
+        .hint { font-size: 0.7rem; opacity: 0.8; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <h2>WEJDŹ DO ŚWIATA</h2>
+        <div class="hint">TAPNIJ, ABY URUCHOMIĆ LOGO</div>
+    </div>
+
+    <div class="container">
+        <svg viewBox="0 0 900 900" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pazury (Nieruchome - Czarne) -->
+            <path id="claws" fill="#000000" d="m541.12 471.8 19.243-30.839 0.24671 33.059 46.628-28.125 7.648-23.191 35.773-12.582-6.1678 18.503-16.036 5.4276-19.243 63.898 8.6349 17.763-5.6743 23.684-19.243-38.98 6.1678-27.632-57.73 36.76z" />
+            
+            <g id="woodpecker-body">
+                <!-- Korpus - Czarny -->
+                <path id="main-body" fill="#000000" d="m409.47 222.77-0.15224 58.91-56.225 90.058v138.76l72.172-119.22 11.457 1.707 4.8691 17.578-88.498 146.19v138.76l56-92.508v231.41l84-138.76v-138.9l76.637-126.56-0.55479-85.23-50.292-46.514-0.53773-12.022 35.611-22.713-13.423-16.498-47.183 28.699-0.0847 36.024 51.866 47.947 0.74989 63.405-80.789 133.46v138.9l-28 46.256v-185.16l83.742-138.34-25.865-89.869-77.942-13.163 17.216-26.14 0.16128-63.225zm-8.0789 115.44 73.648 11.086 18.834 67.41s-56.521 93.368-84.781 140.05l-28 46.254v-46.254c27.644-47.824 85.744-141.91 85.744-141.91l-10.805-44.578-42.238-6.293-32.701 54.018v-46.254z" />
+                <!-- Brzuch - Czerwony -->
+                <path id="belly" fill="#FF0000" d="m493.09 621.52v-64.262l22.637-36.058-11.348-29.901-39.289 64.459v82.9" />
+                <!-- Głowa - Czerwona -->
+                <path id="head" fill="#FF0000" d="m525.8 167.46 36.427 45.998-18.446 11.658-27.838-35.829-110.37-14.287 19.469 27.663 81.499 10.451-4.3957 21.974-93.128-12.029-54.309-77.301z" />
+                <!-- Dziób i oko - Czarne -->
+                <path id="beak" fill="#000000" d="m643.48 253.11-81.819-40.414-18.625 11.686-3.4943 23.572 12.972 16.586z" />
+                <circle id="eye" fill="#000000" cx="503.12" cy="224.69" r="16.049" />
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        const bodyGroup = document.getElementById('woodpecker-body');
+        const overlay = document.getElementById('overlay');
+        
+        let isActuallyPecking = false;
+        let stopTimer;
+        const threshold = 12;
+
+        async function initSensor() {
+            overlay.style.display = 'none';
+
+            if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                const permission = await DeviceMotionEvent.requestPermission();
+                if (permission === 'granted') {
+                    window.addEventListener('devicemotion', handleMove);
+                }
+            } else {
+                window.addEventListener('devicemotion', handleMove);
+            }
+        }
+
+        function handleMove(e) {
+            const acc = e.accelerationIncludingGravity;
+            if (!acc) return;
+
+            const force = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
+
+            if (force > threshold) {
+                if (!isActuallyPecking) {
+                    isActuallyPecking = true;
+                    // Przełączamy na tryb pętli
+                    bodyGroup.classList.remove('is-stopping');
+                    bodyGroup.classList.add('is-pecking');
+                }
+                
+                // Odświeżamy licznik zatrzymania
+                clearTimeout(stopTimer);
+                stopTimer = setTimeout(triggerOutro, 250);
+            }
+        }
+
+        function triggerOutro() {
+            if (isActuallyPecking) {
+                isActuallyPecking = false;
+                // Zamieniamy pętlę na animację wygaszania
+                bodyGroup.classList.remove('is-pecking');
+                bodyGroup.classList.add('is-stopping');
+            }
+        }
+
+        overlay.addEventListener('click', initSensor);
+    </script>
+</body>
+</html>
